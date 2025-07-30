@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,13 +6,7 @@
   <title>Happy Birthday Gauri 🎉</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body
-   <audio autoplay loop>
-  <source src="music/I-Wish-You-Happy-Birthday.mp3" type="audio/mpeg">
-</audio>
-
-   
-   {
+    body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background: #000;
@@ -32,7 +26,7 @@
       font-size: 1.1rem;
       margin: 10px auto;
       max-width: 600px;
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.08);
       padding: 15px;
       border-radius: 10px;
     }
@@ -85,15 +79,26 @@
   </style>
 </head>
 <body>
+
+  <!-- Background Song -->
+  <audio autoplay loop>
+    <source src="music/I-Wish-You-Happy-Birthday.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Balloons Canvas -->
   <canvas id="balloons"></canvas>
+
   <h1>Happy Birthday Gauri didi 🎂</h1>
   <div class="countdown" id="countdown"></div>
 
+  <!-- Birthday Messages -->
   <p class="message">Wishing you a day filled with love, joy, and endless smiles. 🎉</p>
   <p class="message">You light up every room you enter — keep shining always! ✨</p>
   <p class="message">May your dreams be big and your cake bigger! 🍰</p>
   <p class="message">Here's to a beautiful soul who makes the world more beautiful just by being in it. 💖</p>
 
+  <!-- Image Gallery -->
   <div class="gallery">
     <img src="./gallery/6075729177681708919.jpg" alt="Gallery image">
     <img src="./gallery/6075729177681708911.jpg" alt="Gallery image">
@@ -105,10 +110,6 @@
     <img src="./gallery/6075729177681708916.jpg" alt="Gallery image">
     <img src="./gallery/6075729177681708907.jpg" alt="Gallery image">
   </div>
-
-  <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/download/audio/2023/05/16/audio_61b1f4a0b6.mp3?filename=happy-birthday-to-you-140141.mp3" type="audio/mpeg">
-  </audio>
 
   <script>
     // Countdown
@@ -126,11 +127,12 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Balloons Canvas
+    // Balloons Animation
     const canvas = document.getElementById('balloons');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
     let balloons = Array.from({ length: 25 }).map(() => ({
       x: Math.random() * canvas.width,
       y: canvas.height + Math.random() * 100,
@@ -138,6 +140,7 @@
       c: `hsl(${Math.random() * 360}, 100%, 70%)`,
       d: 1 + Math.random()
     }));
+
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       balloons.forEach(b => {
@@ -155,7 +158,7 @@
     }
     draw();
 
-    // Rose Petals
+    // Rose Petal Animation
     function createPetal() {
       const petal = document.createElement("div");
       petal.classList.add("petal");
@@ -166,5 +169,6 @@
     }
     setInterval(createPetal, 300);
   </script>
+
 </body>
 </html>
