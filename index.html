@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Gauri 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #f6d365, #fda085);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      margin-top: 20px;
+      color: #fff8dc;
+    }
+
+    p.message {
+      font-size: 1.2rem;
+      margin: 10px auto;
+      max-width: 600px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="balloons"></canvas>
+  <h1>Happy Birthday Gauri 🎂</h1>
+  <div class="countdown" id="countdown"></div>
+
+  <p class="message">Wishing you a day filled with love, joy, and endless smiles. 🎉</p>
+  <p class="message">You light up every room you enter — keep shining always! ✨</p>
+  <p class="message">May your dreams be big and your cake bigger! 🍰</p>
+  <p class="message">Here's to a beautiful soul who makes the world more beautiful just by being in it. 💖</p>
+
+  <div class="gallery">
+    <img src="./6075729177681708919.jpg" alt="gauri">
+    <img src="./6075729177681708911.jpg" alt="gauri">
+    <img src="./6075729177681708914.jpg" alt="gauri">
+    <img src="./6075729177681708918.jpg" alt="gauri">
+    <img src="./6075729177681708910.jpg" alt="gauri">
+    <img src="./6075729177681708909.jpg" alt="gauri">
+    <img src="./6075729177681708915.jpg" alt="gauri">
+    <img src="./6075729177681708916.jpg" alt="gauri">
+    <img src="./6075729177681708907.jpg" alt="gauri">
+  </div>
+
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/05/16/audio_61b1f4a0b6.mp3?filename=happy-birthday-to-you-140141.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const countdown = document.getElementById('countdown');
+    const birthday = new Date('2025-08-01T00:00:00');
+    function updateCountdown() {
+      const now = new Date();
+      const diff = birthday - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      countdown.innerHTML = `Birthday in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Balloons Confetti
+    const canvas = document.getElementById('balloons');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let balloons = Array.from({ length: 30 }).map(() => ({
+      x: Math.random() * canvas.width,
+      y: canvas.height + Math.random() * 200,
+      r: 20 + Math.random() * 20,
+      c: `hsl(${Math.random() * 360}, 100%, 70%)`,
+      d: 1 + Math.random() * 1
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      balloons.forEach(b => {
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.fillStyle = b.c;
+        ctx.fill();
+        b.y -= b.d;
+        if (b.y + b.r < 0) {
+          b.y = canvas.height + b.r;
+          b.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+</body>
+
+</html>
