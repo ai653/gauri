@@ -1,30 +1,29 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday Gauri (DIDI) 🎉</title>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Gauri 🎉</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #f6d365, #fda085);
+      font-family: 'Poppins', sans-serif;
+      background: #000;
       color: #fff;
       text-align: center;
       overflow-x: hidden;
     }
 
     h1 {
-      font-family: 'Pacifico', cursive;
+      font-family: 'Great Vibes', cursive;
       font-size: 3rem;
       margin-top: 20px;
-      color: #fff8dc;
+      color: #ff69b4;
     }
 
     p.message {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin: 10px auto;
       max-width: 600px;
       background-color: rgba(255, 255, 255, 0.1);
@@ -42,14 +41,14 @@
 
     .gallery img {
       width: 200px;
-      height: auto;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
     }
 
     .countdown {
       font-size: 1.5rem;
-      margin-top: 20px;
+      margin-top: 10px;
+      color: #ff69b4;
     }
 
     canvas {
@@ -59,11 +58,26 @@
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 999;
+      z-index: 1;
+    }
+
+    .petal {
+      position: fixed;
+      top: -10px;
+      width: 15px;
+      height: 15px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/415/415733.png');
+      background-size: cover;
+      animation: fall linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes fall {
+      0% {transform: translateY(0) rotate(0);}
+      100% {transform: translateY(100vh) rotate(360deg);}
     }
   </style>
 </head>
-
 <body>
   <canvas id="balloons"></canvas>
   <h1>Happy Birthday Gauri 🎂</h1>
@@ -75,15 +89,15 @@
   <p class="message">Here's to a beautiful soul who makes the world more beautiful just by being in it. 💖</p>
 
   <div class="gallery">
-    <img src="https://raw.githubusercontent.com/ai653/gauri/main/gallery/6075729177681708919.jpg" alt="Gallery image">
-    <img src="https://raw.githubusercontent.com/ai653/gauri/main/gallery/6075729177681708911.jpg" alt="Gallery image">
-    <img src="https://raw.githubusercontent.com/ai653/gauri/main/gallery/6075729177681708914.jpg" alt="Gallery image">
-    <img src="https://raw.githubusercontent.com/ai653/gauri/main/gallery/6075729177681708918.jpg" alt="Gallery image">
-    <img src="https://raw.githubusercontent.com/ai653/gauri/main/gallery/6075729177681708910.jpg" alt="Gallery image">
-    <img src="https://raw.githubusercontent.com/ai653/gauri/main/gallery/6075729177681708909.jpg" alt="Gallery image">
-    <img src="https://raw.githubusercontent.com/ai653/gauri/main/gallery/6075729177681708915.jpg" alt="Gallery image">
-    <img src="https://raw.githubusercontent.com/ai653/gauri/main/gallery/6075729177681708916.jpg" alt="Gallery image">
-    <img src="https://raw.githubusercontent.com/ai653/gauri/main/gallery/6075729177681708907.jpg" alt="Gallery image">
+    <img src="./gallery/6075729177681708919.jpg" alt="Gallery image">
+    <img src="./gallery/6075729177681708911.jpg" alt="Gallery image">
+    <img src="./gallery/6075729177681708914.jpg" alt="Gallery image">
+    <img src="./gallery/6075729177681708918.jpg" alt="Gallery image">
+    <img src="./gallery/6075729177681708910.jpg" alt="Gallery image">
+    <img src="./gallery/6075729177681708909.jpg" alt="Gallery image">
+    <img src="./gallery/6075729177681708915.jpg" alt="Gallery image">
+    <img src="./gallery/6075729177681708916.jpg" alt="Gallery image">
+    <img src="./gallery/6075729177681708907.jpg" alt="Gallery image">
   </div>
 
   <audio autoplay loop>
@@ -91,34 +105,33 @@
   </audio>
 
   <script>
+    // Countdown
     const countdown = document.getElementById('countdown');
     const birthday = new Date('2025-08-01T00:00:00');
     function updateCountdown() {
       const now = new Date();
       const diff = birthday - now;
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      countdown.innerHTML = `Birthday in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / 1000 / 60) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      countdown.innerHTML = `Birthday in ${d}d ${h}h ${m}m ${s}s`;
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Balloons Confetti
+    // Balloons Canvas
     const canvas = document.getElementById('balloons');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
-    let balloons = Array.from({ length: 30 }).map(() => ({
+    let balloons = Array.from({ length: 25 }).map(() => ({
       x: Math.random() * canvas.width,
-      y: canvas.height + Math.random() * 200,
-      r: 20 + Math.random() * 20,
+      y: canvas.height + Math.random() * 100,
+      r: 15 + Math.random() * 20,
       c: `hsl(${Math.random() * 360}, 100%, 70%)`,
-      d: 1 + Math.random() * 1
+      d: 1 + Math.random()
     }));
-
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       balloons.forEach(b => {
@@ -135,7 +148,17 @@
       requestAnimationFrame(draw);
     }
     draw();
+
+    // Rose Petals
+    function createPetal() {
+      const petal = document.createElement("div");
+      petal.classList.add("petal");
+      petal.style.left = Math.random() * 100 + "vw";
+      petal.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.body.appendChild(petal);
+      setTimeout(() => petal.remove(), 5000);
+    }
+    setInterval(createPetal, 300);
   </script>
 </body>
-
 </html>
