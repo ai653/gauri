@@ -13,13 +13,21 @@
       color: #fff;
       text-align: center;
       overflow-x: hidden;
+      padding-bottom: 100px;
     }
 
     h1 {
       font-family: 'Great Vibes', cursive;
-      font-size: 3rem;
-      margin-top: 20px;
+      font-size: 3.5rem;
+      margin-top: 30px;
       color: #ff69b4;
+      text-shadow: 0 0 10px #ff69b4;
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+      margin: 10px 0 30px;
+      color: #ffd700;
     }
 
     p.message {
@@ -29,26 +37,35 @@
       background-color: rgba(255, 255, 255, 0.08);
       padding: 15px;
       border-radius: 10px;
+      border-left: 4px solid #ff69b4;
+      text-align: left;
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
     }
 
     .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 20px;
-      padding: 30px;
+      padding: 30px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
     .gallery img {
-      width: 200px;
+      width: 100%;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .countdown {
-      font-size: 1.5rem;
-      margin-top: 10px;
-      color: #ff69b4;
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff69b4;
+    }
+
+    audio {
+      margin-top: 30px;
+      outline: none;
     }
 
     canvas {
@@ -64,12 +81,13 @@
     .petal {
       position: fixed;
       top: -10px;
-      width: 15px;
-      height: 15px;
+      width: 20px;
+      height: 20px;
       background-image: url('https://cdn-icons-png.flaticon.com/512/415/415733.png');
       background-size: cover;
       animation: fall linear infinite;
       z-index: 2;
+      opacity: 0.8;
     }
 
     @keyframes fall {
@@ -80,9 +98,9 @@
 </head>
 <body>
 
-  <!-- Background Song -->
-  <audio autoplay loop>
-    <source src="music/I-Wish-You-Happy-Birthday.mp3" type="audio/mpeg">
+  <!-- Audio Player with Controls -->
+  <audio controls autoplay loop>
+    <source src="music/AUD-20250731-WA0001.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -93,10 +111,10 @@
   <div class="countdown" id="countdown"></div>
 
   <!-- Birthday Messages -->
-  <p class="message">Wishing you a day filled with love, joy, and endless smiles. 🎉</p>
-  <p class="message">You light up every room you enter — keep shining always! ✨</p>
-  <p class="message">May your dreams be big and your cake bigger! 🍰</p>
-  <p class="message">Here's to a beautiful soul who makes the world more beautiful just by being in it. 💖</p>
+  <p class="message">🎉 Wishing you a day filled with love, joy, and endless smiles.</p>
+  <p class="message">💫 You light up every room you enter — keep shining always!</p>
+  <p class="message">🍰 May your dreams be big and your cake even bigger!</p>
+  <p class="message">🌸 Here's to a beautiful soul who makes the world more beautiful just by being in it.</p>
 
   <!-- Image Gallery -->
   <div class="gallery">
@@ -118,11 +136,15 @@
     function updateCountdown() {
       const now = new Date();
       const diff = birthday - now;
+      if (diff <= 0) {
+        countdown.innerHTML = "🎊 It's her Birthday Today!";
+        return;
+      }
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const m = Math.floor((diff / 1000 / 60) % 60);
       const s = Math.floor((diff / 1000) % 60);
-      countdown.innerHTML = `Birthday in ${d}d ${h}h ${m}m ${s}s`;
+      countdown.innerHTML = `⏳ Birthday in ${d}d ${h}h ${m}m ${s}s`;
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
